@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jobs</title>
+</head>
+<body>
+    {% block content %}
+  <h1>Find Your Desired Job!</h1>
+
+  <form method="get">
+    {{ form.as_p }}
+    <button type="submit">search</button>
+  </form>
+<div>
+  {% if result %}
+    {% if result.success %}
+      {% for data in result.search_result %}
+        <h3>{{ data.company }}</h3>
+        <h4>{{ data.title }}</h4>
+        <h5>{{ data.location }}</h5>
+        <p>{{ data.description | striptags }}</p>
+
+        <p> {{ data.how_to_apply | striptags }}</p>
+        
+      {% endfor %}
+    {% else %}
+      <p><em>{{ result.message }}</em></p>
+    {% endif %}
+  {% endif %}
+</div>
+{% endblock %}
+</body>
+</html>
